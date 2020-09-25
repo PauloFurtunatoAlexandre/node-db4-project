@@ -12,8 +12,6 @@ exports.up = function (knex) {
         .createTable("steps", (tbl) => {
             tbl.increments("id");
             tbl.string("step_name", 128).notNullable().unique();
-            tbl.integer("preparing_time").notNullable();
-            tbl.integer("cooking_time");
             tbl.integer("recipe_id")
                 .unsigned()
                 .notNullable()
@@ -34,6 +32,9 @@ exports.up = function (knex) {
                 .references("recipes.id")
                 .onUpdate("CASCADE")
                 .onDelete("CASCADE");
+            tbl.float("amount_ingredient").notNullable();
+            tbl.integer("preparing_time").notNullable();
+            tbl.integer("cooking_time").notNullable();
             tbl.primary(["ingredient_id", "recipe_id"]);
         });
 };
